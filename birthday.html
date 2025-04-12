@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 Happy Birthday Jiju 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(to top right, #fff1eb, #ace0f9);
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .balloon {
+      width: 60px;
+      height: 80px;
+      border-radius: 60% 60% 60% 60%;
+      position: absolute;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    .string {
+      width: 2px;
+      height: 60px;
+      background: #333;
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .centered-wrapper {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card {
+      padding: 40px;
+      background: white;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      z-index: 100;
+      max-width: 90%;
+      width: 400px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.5em;
+      color: #ff4081;
+      margin-bottom: 10px;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25%, 75% { transform: scale(1.05); }
+      50% { transform: scale(1.1); }
+    }
+
+    .btn {
+      margin-top: 20px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e91e63;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(to right, #ffd5ec, #f3f9ff);
+      padding: 30px;
+      border-radius: 30px;
+      box-shadow: 0 0 25px #ff80ab, 0 0 45px #f48fb1;
+      text-align: center;
+      z-index: 1000;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .modal img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    .modal h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5em;
+      color: #d81b60;
+      margin-bottom: 10px;
+    }
+
+    .modal p {
+      font-size: 1.2em;
+      color: #333;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Balloon container -->
+  <div id="balloon-container"></div>
+
+  <!-- Centered Card -->
+  <div class="centered-wrapper">
+    <div class="card">
+      <h1>Happy Birthday!</h1>
+      <p>Click below to reveal your magical card 🎁</p>
+      <button class="btn" onclick="showModal()">Open Card</button>
+    </div>
+  </div>
+
+  <!-- Modal Popup -->
+  <div class="modal" id="birthdayModal">
+    <img src="jiju.jfif" alt="Jiju's Photo">
+    <h2>Happy Birthday Gourav Beta!</h2>
+    <p id="typingText"></p>
+  </div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" src="happy.mp3" preload="auto"></audio>
+
+  <!-- Balloon JS -->
+  <script>
+    function createBalloon(color) {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.backgroundColor = color;
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.bottom = '-100px';
+
+      const string = document.createElement('div');
+      string.className = 'string';
+      balloon.appendChild(string);
+
+      document.getElementById('balloon-container').appendChild(balloon);
+
+      const floatDistance = window.innerHeight + 200;
+      const duration = 8 + Math.random() * 5;
+
+      gsap.to(balloon, {
+        y: -floatDistance,
+        x: "+=" + (Math.random() * 100 - 50),
+        rotation: Math.random() * 20 - 10,
+        duration: duration,
+        ease: "sine.inOut",
+        onComplete: () => balloon.remove()
+      });
+    }
+
+    // Generate slow wave of balloons on load
+    window.addEventListener('load', () => {
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          const colors = ['#f06292', '#ba68c8', '#4fc3f7', '#81c784', '#ffd54f'];
+          createBalloon(colors[Math.floor(Math.random() * colors.length)]);
+        }, i * 150);
+      }
+    });
+
+    // Continue creating balloons every 500ms
+    setInterval(() => {
+      const colors = ['#f06292', '#ba68c8', '#4fc3f7', '#81c784', '#ffd54f'];
+      createBalloon(colors[Math.floor(Math.random() * colors.length)]);
+    }, 500);
+  </script>
+
+  <!-- Modal Show and Animate -->
+  <script>
+    function showModal() {
+      const modal = document.getElementById("birthdayModal");
+      modal.style.display = "block";
+
+      // Play music
+      document.getElementById("bgMusic").play();
+
+      // Confetti
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+
+      // GSAP animations
+      gsap.from(modal, {
+        duration: 1,
+        scale: 0.5,
+        opacity: 0,
+        ease: "back.out(1.7)"
+      });
+
+      gsap.from(modal.querySelector("img"), {
+        duration: 1,
+        delay: 0.3,
+        y: -50,
+        opacity: 0,
+        ease: "power2.out"
+      });
+
+      gsap.from(modal.querySelector("h2"), {
+        duration: 1,
+        delay: 0.5,
+        x: -100,
+        opacity: 0,
+        ease: "elastic.out(1, 0.5)"
+      });
+
+      // Typing effect
+      const message = "You’re simply the best! May your year be filled with joy, laughter and love! 💖🎂";
+      let i = 0;
+      const target = document.getElementById("typingText");
+      target.innerHTML = "";
+      function typeLetter() {
+        if (i < message.length) {
+          target.innerHTML += message.charAt(i);
+          i++;
+          setTimeout(typeLetter, 40);
+        }
+      }
+      setTimeout(typeLetter, 700);
+    }
+  </script>
+</body>
+</html>
